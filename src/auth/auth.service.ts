@@ -48,9 +48,21 @@ export class AuthService {
   async login({ email, password }: LoginDto) {
     try {
       const user = await this.prisma.user.findUnique({ where: { email } });
-
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      if (!user) {
         throw new UnauthorizedException('Invalid email or password');
+      }
+
+      // If user is admin, do plain password check (no bcrypt)
+      if (email === 'admin@gmail.com') {
+        if (user.password !== password) {
+          throw new UnauthorizedException('Invalid email or password');
+        }
+      } else {
+        // For other users, compare hashed password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+          throw new UnauthorizedException('Invalid email or password');
+        }
       }
 
       const payload = { sub: user.id, email: user.email };
@@ -119,5 +131,17 @@ export class AuthService {
       },
     });
     return !!user;
+  }
+
+  async getList(paginate: { skip: number; take: number }) {
+    const data = await this.prisma.user.findMany(paginate);
+    const total = await this.prisma.user.count();
+    return {
+      data,
+      total,
+      page: paginate.skip / paginate.take + 1,
+      limit: paginate.take,
+      totalPages: Math.ceil(total / paginate.take),
+    };
   }
 }

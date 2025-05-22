@@ -20,6 +20,7 @@ model User {
   country_code String         @default("91")
   password     String
   token        String?
+  role         RolesEnum      @default(USER)
   createdAt    DateTime       @default(now())
   status       UserStatusEnum @default(ACTIVE)
 }
@@ -42,4 +43,10 @@ enum UserStatusEnum {
   ACTIVE
   INACTIVE
   SUSPENDED
+}
+enum RolesEnum {
+  ADMIN
+  SUPER_ADMIN
+  USER
+  UNKNOWN
 }
