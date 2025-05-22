@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  first_name   String
+  last_name    String
+  dob          String
+  address      String?
+  country      String?
+  state        String?
+  phone_number BigInt         @unique
+  email        String         @unique
+  country_code String         @default("91")
+  password     String
+  token        String?
+  createdAt    DateTime       @default(now())
+  status       UserStatusEnum @default(ACTIVE)
+}
+
+model otp {
+  id           Int      @id @default(autoincrement())
+  phone_number BigInt   @unique
+  otp          String
+  created_on   DateTime @default(now())
+  expire_on    DateTime
+}
+
+model action_name {
+  id           Int      @id @default(autoincrement())
+  action_name String
+  actionDes String
+}
+
+enum UserStatusEnum {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}

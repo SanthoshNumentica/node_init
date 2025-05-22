@@ -1,0 +1,96 @@
+[ 
+{ 
+"id":1,
+"actionName":"ADD",
+"actionDes":"Add"
+},
+{ 
+"id":2,
+"actionName":"UPDATE",
+"actionDes":"Modify"
+},
+{ 
+"id":3,
+"actionName":"DELETE",
+"actionDes":"Delete"
+},
+{ 
+"id":4,
+"actionName":"READ",
+"actionDes":"Read"
+},
+{ 
+"id":5,
+"actionName":"VERIFY",
+"actionDes":"Approve"
+},
+{ 
+"id":8,
+"actionName":"VIEW_ALL",
+"actionDes":"view all"
+},
+{ 
+"id":9,
+"actionName":"REJECT",
+"actionDes":"reject"
+},
+{ 
+"id":10,
+"actionName":"MANAGE_ROLE",
+"actionDes":"manage role"
+},
+{ 
+"id":11,
+"actionName":"PROCESS",
+"actionDes":"Process"
+},
+{ 
+"id":12,
+"actionName":"MANAGE_EMAIL_TEMPLATES",
+"actionDes":"Manage Email"
+},
+{ 
+"id":13,
+"actionName":"FLAT_REPORT",
+"actionDes":"Flat Report"
+},
+{ 
+"id":14,
+"actionName":"APPROVE",
+"actionDes":"Approve"
+},
+{ 
+"id":15,
+"actionName":"MANAGE_MASTER",
+"actionDes":"manage master"
+},
+{ 
+"id":16,
+"actionName":"MEMBER REPORT",
+"actionDes":"member report"
+},
+{ 
+"id":17,
+"actionName":"CONFIRM",
+"actionDes":"confirm"
+},
+{ 
+"id":18,
+"actionName":"DELIVER",
+"actionDes":"deliver"
+},
+{ 
+"id":19,
+"actionName":"PLACED_ORDER",
+"actionDes":"place order"
+},
+{ 
+"id":20,
+"actionName":"DISPATCH",
+"actionDes":"dispatch"
+},
+{ 
+"id":21,
+"actionName":"MANAGE_ALLIANCE_PARTNER",
+"actionDes":"Manage alliance partner"
+}]
