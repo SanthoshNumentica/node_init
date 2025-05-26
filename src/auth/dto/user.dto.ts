@@ -1,6 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { RolesEnum } from '@prisma/client';
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -46,6 +48,11 @@ export class AuthDto {
   @IsOptional()
   @ApiPropertyOptional()
   address: string;
+
+  @IsEnum(RolesEnum)
+  @IsOptional()
+  @ApiPropertyOptional()
+  role: RolesEnum;
 
   @IsString()
   @IsOptional()

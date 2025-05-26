@@ -1,9 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthDto, LoginDto, MobileLoginDto } from './dto/user.dto';
 import { OtpDto } from './dto/otp.dto';
-
+import { paginate } from 'nestjs-prisma-pagination';
+import { PaginationDto } from 'src/utils/pagination.dto';
+import { RolesGuard } from 'src/common/decorators/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorators';
+import { GetCurrentUserId } from 'src/common/decorators/getCurrentUserId.decorator';
 @ApiTags('auth')
 @ApiBearerAuth()
 @Controller('auth')
@@ -45,5 +49,11 @@ export class AuthController {
   })
   async authToken(@Body('authToken') authToken: string): Promise<boolean> {
     return await this.authService.authToken(authToken);
+  }
+  @Get('getList')
+  async getList(@Query() paginationDto: PaginationDto) {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+    return await this.authService.getList({ skip, take: limit });
   }
 }
