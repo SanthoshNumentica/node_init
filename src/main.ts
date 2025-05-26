@@ -9,8 +9,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const { httpAdapter } = app.get(HttpAdapterHost);
   const config = new DocumentBuilder()
-    .setTitle('Tele Doctor')
-    .setDescription('The Tele Doctor API description')
+    .setTitle('Node Init')
+    .setDescription('The Nest API description')
     .setVersion('0.1')
     .addServer('api/v1')
     .addBearerAuth()

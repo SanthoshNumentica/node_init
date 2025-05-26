@@ -6,7 +6,7 @@ import { MainDto } from './dto/main.dto';
 
 @Injectable()
 export class JsonInsertService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async insertJsonData(data: any[], tableName: string): Promise<number> {
     if (!Array.isArray(data)) {
@@ -14,8 +14,12 @@ export class JsonInsertService {
     }
 
     const validTables = [
-      'action_name',
+      'action_name', 'module_action', 'module', 'payment_mode', 'role'
     ];
+    for (const table of validTables) {
+      await this.prisma.$executeRawUnsafe(`DELETE FROM \`${table}\``);
+      await this.prisma.$executeRawUnsafe(`ALTER TABLE \`${table}\` AUTO_INCREMENT = 1`);
+    }
 
     if (!validTables.includes(tableName)) {
       throw new BadRequestException('Invalid table name');
@@ -34,6 +38,52 @@ export class JsonInsertService {
                 data: batch.map(item => ({
                   action_name: item.actionName,
                   actionDes: item.actionDes
+                })),
+              });
+              break;
+            case 'module_action':
+              insertResult = await this.prisma.module_action.createMany({
+                data: batch.map(item => ({
+                  module_id: item.module_id,
+                  action_id: item.action_id
+                })),
+              });
+              break;
+
+            case 'module':
+              insertResult = await this.prisma.module.createMany({
+                data: batch.map(item => ({
+                  moduleName: item.moduleName,
+                  status: item.status,
+                  moduleDes: item.moduleDes
+                })),
+              });
+              break;
+
+            case 'payment_mode':
+              insertResult = await this.prisma.payment_mode.createMany({
+                data: batch.map(item => ({
+                  payment_modeName: item.payment_modeName,
+                  status: item.status,
+                  created_at: String(item.created_at)
+                })),
+              });
+              break;
+
+            case 'role':
+              insertResult = await this.prisma.role.createMany({
+                data: batch.map(item => ({
+                  roleName: item.roleName,
+                  status: item.status,
+                })),
+              });
+              break;
+
+            case 'role_permission':
+              insertResult = await this.prisma.role_permission.createMany({
+                data: batch.map(item => ({
+                  moduleActionId: item.moduleActionId,
+                  role_id: item.role_id,
                 })),
               });
               break;

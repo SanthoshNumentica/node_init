@@ -3,7 +3,6 @@ import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-valida
 
 export class OtpDto {
   @IsString()
-  @IsNumber()
   @ApiProperty()
   otp: string;
 

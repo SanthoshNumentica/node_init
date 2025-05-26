@@ -15,7 +15,7 @@ const jsonInsertService = new JsonInsertService(
   new PrismaService(new ConfigService()),
 );
 
-const INSERTDATA_LIST = ['action_name'];
+const INSERTDATA_LIST = ['action_name','module_action', 'module', 'payment_mode', 'role', 'role_permission'];
 
 const FILE_PATH_TEMPLATE = (dataType: string) =>
   path.resolve(__dirname, '../src/json_files', `${dataType}.json`);

@@ -33,9 +33,42 @@ model otp {
 }
 
 model action_name {
-  id           Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   action_name String
-  actionDes String
+  actionDes   String
+}
+
+model module_action {
+  id        Int @id @default(autoincrement())
+  module_id Int
+  action_id Int
+}
+
+model module {
+  id         Int     @id @default(autoincrement())
+  moduleName String
+  status     Int
+  moduleDes  String?
+}
+
+model payment_mode {
+  id               Int    @id @default(autoincrement())
+  payment_modeName String
+  status           Int
+  created_at       String
+}
+
+model role {
+  id          Int     @id @default(autoincrement())
+  roleName    String
+  status      Int
+  designation String?
+}
+
+model role_permission {
+  id             Int @id @default(autoincrement())
+  moduleActionId Int
+  role_id        Int
 }
 
 enum UserStatusEnum {
